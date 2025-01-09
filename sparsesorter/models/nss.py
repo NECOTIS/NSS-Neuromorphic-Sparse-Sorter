@@ -18,12 +18,12 @@ class NSS(nn.Module):
         self,
         input_size: int = 120,
         net_size: list = [120, 10],
-        threshold: float | list = 0.1,
-        gamma: float = 0.1,
-        lr: float = 0.1,
+        threshold: float | list = 0.03,
+        gamma: float = 0.05,
+        lr: float = 0.07,
         n_model = "TDQ",
         bit_width: int = 2,
-        iters: int = 100,
+        iters: int = 200,
         scale_factor: float = 0.8,
         fs: int = 10000,
         **_,
@@ -100,9 +100,8 @@ class NSS(nn.Module):
 
         nss_out = np.concatenate(nss_out, axis=0)
         n_spikes = np.concatenate(n_spikes, axis=0)
-        sorted_spikes = np.argmax(nss_out, axis=1).astype(int)
 
-        return sorted_spikes, n_spikes
+        return nss_out, n_spikes
 
 
 

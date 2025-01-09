@@ -48,7 +48,6 @@ class SortingMetrics(object):
             n_jobs=-1,
             match_mode=match_mode,
             match_score=0.2,
-            sampling_frequency=self.fs,
             exhaustive_gt=exhaustive_gt,
             compute_labels=compute_labels,
         )

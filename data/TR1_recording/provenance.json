@@ -1,0 +1,182 @@
+{
+    "class": "spikeinterface.core.channelslice.ChannelSliceRecording",
+    "module": "spikeinterface",
+    "version": "0.101.1",
+    "kwargs": {
+        "parent_recording": {
+            "class": "spikeinterface.preprocessing.filter.BandpassFilterRecording",
+            "module": "spikeinterface",
+            "version": "0.101.1",
+            "kwargs": {
+                "recording": {
+                    "class": "spikeinterface.core.binaryrecordingextractor.BinaryRecordingExtractor",
+                    "module": "spikeinterface",
+                    "version": "0.101.1",
+                    "kwargs": {
+                        "file_paths": [
+                            "../d533101.dat"
+                        ],
+                        "sampling_frequency": 10000,
+                        "t_starts": null,
+                        "num_channels": 8,
+                        "dtype": "<i2",
+                        "channel_ids": [
+                            0,
+                            1,
+                            2,
+                            3,
+                            4,
+                            5,
+                            6,
+                            7
+                        ],
+                        "time_axis": 0,
+                        "file_offset": 0,
+                        "gain_to_uV": 1,
+                        "offset_to_uV": 0,
+                        "is_filtered": null
+                    },
+                    "annotations": {
+                        "is_filtered": false,
+                        "name": null
+                    },
+                    "properties": {
+                        "group": null,
+                        "location": null,
+                        "gain_to_uV": [
+                            1,
+                            1,
+                            1,
+                            1,
+                            1,
+                            1,
+                            1,
+                            1
+                        ],
+                        "offset_to_uV": [
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    "relative_paths": false
+                },
+                "freq_min": 300,
+                "freq_max": 3000,
+                "margin_ms": 5.0,
+                "dtype": "<f4"
+            },
+            "annotations": {
+                "is_filtered": true,
+                "name": null
+            },
+            "properties": {
+                "group": null,
+                "location": null,
+                "gain_to_uV": [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                ],
+                "offset_to_uV": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ]
+            },
+            "relative_paths": false
+        },
+        "channel_ids": [
+            1,
+            2,
+            3,
+            4
+        ],
+        "renamed_channel_ids": [
+            1,
+            2,
+            3,
+            4
+        ]
+    },
+    "annotations": {
+        "is_filtered": true,
+        "name": null,
+        "probe_0_planar_contour": [
+            [
+                -25.0,
+                85.0
+            ],
+            [
+                -25.0,
+                -25.0
+            ],
+            [
+                0.0,
+                -125.0
+            ],
+            [
+                25.0,
+                -25.0
+            ],
+            [
+                25.0,
+                85.0
+            ]
+        ]
+    },
+    "properties": {
+        "group": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "location": [
+            [
+                0.0,
+                0.0
+            ],
+            [
+                0.0,
+                20.0
+            ],
+            [
+                0.0,
+                40.0
+            ],
+            [
+                0.0,
+                60.0
+            ]
+        ],
+        "gain_to_uV": [
+            1,
+            1,
+            1,
+            1
+        ],
+        "offset_to_uV": [
+            0,
+            0,
+            0,
+            0
+        ]
+    },
+    "relative_paths": true
+}

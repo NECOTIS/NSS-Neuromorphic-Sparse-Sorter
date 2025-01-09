@@ -25,9 +25,8 @@ def v1_neuron(u, a, input_biais, Wr, gamma, threshold, a_positive=True):
     # apply rectified softshrink
     a_next = u_next*(u_next>threshold) - threshold
     
-    #TODO: normally shouldn't be useful
-    # if a_positive:#set to zeros for negative values of a 
-    #     a_next[a_next<0] = 0
+    if a_positive:#set to zeros for negative values of a 
+        a_next[a_next<0] = 0
 
     return u_next, a_next
 
@@ -76,10 +75,10 @@ class LCA(nn.Module):
         self,
         input_size: int,
         gamma: float,
-        threshold: float = 0.04,  # lambda
+        threshold: float = 0.03,
         n_atoms: int = 100,
         lr: float = 0.07,
-        neuron_model: str = "TDQ",  # V1/TDQ/LIF
+        neuron_model: str = "TDQ",  #V1/TDQ/LIF
         bit_width: int = 2,
         D_positive: bool = False,
         seed=0xC0DE,
@@ -90,7 +89,7 @@ class LCA(nn.Module):
         self.threshold = threshold
         self.natoms = n_atoms
         self.lr = lr
-        self.n_model = neuron_model  # V1/TDQ/LIF
+        self.n_model = neuron_model
         self.bit_width = bit_width
         self.D_positive = D_positive
 
