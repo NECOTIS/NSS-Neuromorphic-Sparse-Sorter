@@ -81,7 +81,7 @@ class LCA(nn.Module):
         neuron_model: str = "TDQ",  #V1/TDQ/LIF
         bit_width: int = 2,
         D_positive: bool = False,
-        seed=0xC0DE,
+        seed:int=0,
         **_,
     ):
         super(LCA, self).__init__()

@@ -24,8 +24,9 @@ class NSS(nn.Module):
         n_model = "TDQ",
         bit_width: int = 2,
         iters: int = 200,
-        scale_factor: float = 0.8,
+        scale_factor: float = 0.8, #slightly scale up values between LCA1 & LCA2
         fs: int = 10000,
+        seed: int = 0,
         **_,
     ):
         super(NSS, self).__init__()
@@ -38,6 +39,7 @@ class NSS(nn.Module):
             lr=lr,
             neuron_model=n_model,
             bit_width=bit_width,
+            seed=seed,
         )
         self.lca2 = LCA(
             input_size=net_size[0],
@@ -48,6 +50,7 @@ class NSS(nn.Module):
             neuron_model=n_model,
             bit_width=bit_width,
             D_positive=True,
+            seed=seed,
         )
         self.scale_factor = scale_factor
         self.iters = iters
@@ -63,8 +66,7 @@ class NSS(nn.Module):
         for it in range(self.iters):
             self.lca1.forward(input)
             self.lca1.n_spikes += torch.norm(self.lca1.a, p=0, dim=1)
-            # if torch.any(self.lca1.a != 0): #propagate only if there is activity
-            #     self.scale_factor = torch.max(self.lca1.a)
+
             scaled_output = torch.mul(self.lca1.a, 1/self.scale_factor)
             self.lca2.forward(scaled_output)
             self.lca2.n_spikes += torch.norm(self.lca2.a, p=0, dim=1)
@@ -91,7 +93,7 @@ class NSS(nn.Module):
         nss_out = []
         n_spikes = []
         for _, (bi, ri) in enumerate(tqdm(X)):
-            if int(ri[-1]) / self.fs > 120:
+            if int(ri[-1]) / self.fs > 60:
                 self.lca1.lr, self.lca2.lr = 0.01, 0.01
                 self.iters = 64
                 n_spikes.append(self.lca1.n_spikes + self.lca2.n_spikes)

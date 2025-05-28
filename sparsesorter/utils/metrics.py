@@ -75,7 +75,7 @@ class SortingMetrics(object):
 
         return self.fscore
 
-#TODO: correct the function
+
 def compute_fscore_evolution(sorted_spikes, dataset, packet_size:int=100):
     # compute fscore every packet of Ns spikes processed
     gtr = dataset["gt_raster"]
