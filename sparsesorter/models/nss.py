@@ -93,7 +93,7 @@ class NSS(nn.Module):
         nss_out = []
         n_spikes = []
         for _, (bi, ri) in enumerate(tqdm(X)):
-            if int(ri[-1]) / self.fs > 60:
+            if int(ri[-1]) / self.fs > 120:
                 self.lca1.lr, self.lca2.lr = 0.01, 0.01
                 self.iters = 64
                 n_spikes.append(self.lca1.n_spikes + self.lca2.n_spikes)
