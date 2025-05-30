@@ -51,6 +51,7 @@ class SortingMetrics(object):
             exhaustive_gt=exhaustive_gt,
             compute_labels=compute_labels,
         )
+        self.sorting_perf = sorting_perf
         return sorting_perf
 
     def get_accuracy(self):

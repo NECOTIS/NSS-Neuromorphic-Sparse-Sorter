@@ -68,3 +68,43 @@ def build_dataloader(ds, tmax=240, fs=10000, batch_size=16):
     return dataset, dataloader
 
 
+def compute_detection_performance(dataset, delta_time=1, fs=10000):
+    """Compute predicted label for each peak according to their closest ground truth spike """
+    gtr = dataset["gt_raster"]
+    snr = dataset["snr"]
+    _, counts = np.unique(gtr[1], return_counts=True)
+    tp, fn, fp = np.zeros(len(snr)), np.zeros(len(snr)), 0
+    well_detected_spikes, not_detected_gt_spikes = [], []
+    peaks_idx, peaks_idx_copy = dataset["raster"], np.copy(dataset["raster"])
+    labels_peaks = -1 * np.ones(len(peaks_idx))
+    
+    for i in range(gtr.shape[1]):
+        idx = np.where(
+            np.abs(peaks_idx_copy - gtr[0, i]) <= delta_time * fs / 1000
+        )  # search for a spike in a 1ms range
+        if idx[0].size > 0:
+            tp[gtr[1, i]] += 1
+            well_detected_spikes.append(i)
+            idx_closest = np.argmin(np.abs(peaks_idx_copy - gtr[0, i]))
+            labels_peaks[np.where(peaks_idx == peaks_idx_copy[idx_closest])] = gtr[1, i]
+            peaks_idx_copy = np.delete(peaks_idx_copy, idx_closest)
+        else:
+            fn[gtr[1, i]] += 1
+            not_detected_gt_spikes.append(i)
+    fp = len(peaks_idx) - len(well_detected_spikes)
+    precision = tp / counts
+    recall = tp / (tp + fn)
+    fprate = fp / (fp + tp)
+
+    res_detection = {
+        "tp": tp,
+        "fn": fn,
+        "fp": fp,
+        "well_detected_spikes": well_detected_spikes,
+        "not_detected_gt_spikes": not_detected_gt_spikes,
+        "labels_peaks": labels_peaks,
+        "fp_rate": fprate,
+    }
+    return res_detection
+
+
