@@ -14,7 +14,26 @@ from metrics import SortingMetrics
 figures_path = Path("../figures")
 plt.style.use("seaborn-v0_8-paper")
 
-def plot_nss_output(nss_out, dataset, rec_f, detection_th):
+def plot_nss_output(nss_out, dataset, rec_f, detection_th, time_range=[0, 10]):
+    """
+    Plot the NSS output and compare it with the ground truth raster.
+    Parameters
+    ----------
+    nss_out : np.ndarray
+        The output of the NSS algorithm, shape (nspikes, natoms_out).
+    dataset : dict
+        A dictionary containing the dataset information, including:
+        - "raster": the raster of detected spikes.
+        - "gt_raster": the ground truth raster.
+        - "fs": the sampling frequency.
+    rec_f : object
+        The recording file object that provides access to the traces.
+    detection_th : np.ndarray
+        The detection thresholds for each channel, shape (nchan,).
+    t_range : list, optional
+        The time range to plot, specified as [start_time, end_time] in seconds.
+        Default is [0, 10].    
+    """
     
     sorted_spikes = np.argmax(nss_out, axis=1).astype(int) # select most active neuron
     gtsort_comp = SortingMetrics(
@@ -32,8 +51,7 @@ def plot_nss_output(nss_out, dataset, rec_f, detection_th):
     nneurons = np.unique(dataset["gt_raster"][1]).shape[0]
     nchan = rec_f.get_num_channels()
 
-    fig = plt.figure(figsize=(6, 7), dpi=150)
-    time_range = (75, 80)  # time range in s
+    _ = plt.figure(figsize=(6, 7), dpi=150)
     t = np.arange(time_range[0], time_range[1], 1 / fs)
     peaks_train = dataset["raster"]
     mask_trange = (peaks_train >= time_range[0] * fs) & (peaks_train < time_range[1] * fs)
