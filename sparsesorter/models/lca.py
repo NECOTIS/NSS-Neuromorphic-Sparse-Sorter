@@ -133,9 +133,12 @@ class LCA(nn.Module):
         if self.D_positive:
             self.D = torch.clamp(self.D , min=0)
         self.D /= torch.norm(self.D, p=2, dim=0, keepdim=True)
-        self.Wr = torch.mm(torch.t(self.D), self.D) - torch.eye(self.natoms).to(
+        Wr = torch.mm(torch.t(self.D), self.D) - torch.eye(self.natoms).to(
             device=DEVICE, dtype=DTYPE
-        )   
+        )
+        Wr[Wr < 0] = 0
+        self.Wr = Wr
+
 
 
     def init_vars(self, input_size, iters):
