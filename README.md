@@ -6,7 +6,6 @@ Our study aims to create a quick and energy-efficient spike sorting pipeline by 
 - [Installation](#installation)
 - [Usage](#usage)
 - [Dependencies](#dependencies)
-- [Pipeline Overview](#pipeline-overview)
 - [Acknowledgements](#acknowledgements)
 
 ## Installation
@@ -32,12 +31,7 @@ To use this spike sorting pipeline, follow these steps:
 
 To run the spike sorting pipeline, execute the main script:
 ```
-python run.py
-```
-Make sure to provide the required input files and adjust any necessary parameters within the script.
-You can run the following command to get info on the parameters :
-```
-python run.py --help
+python scripts/run_nss.py
 ```
 
 ## Dependencies
@@ -47,19 +41,8 @@ The spike sorting pipeline requires the following dependencies:
 - Python (version >= 3.9)
 - Pytorch (version >= 2.0 )
 - spikeinterface (version >= 0.97.1)
-- HDBSCAN (version >= 0.8.29)
 
 Please refer to the respective documentation and installation guides of each library to ensure proper setup.
-
-## Pipeline Overview
-
-The spike sorting pipeline follows these main steps:
-
-1. Load the simulated electrophysiological signals generated using the MEArec framework.
-2. Extract features from the signals using the Locally Competitive Algorithm (LCA).
-3. Cluster the sparse encoded the features with the density-based clustering algorithm, HDBSCAN.
-4. Construct the inferred spike trains b combining the clustering results and the ground truth spike timings.
-5. Compare the ground truth spike train with the inferred spike trains using a comparison metric taken from the spikeinterface framework.
 
 # Acknowledgements
 
