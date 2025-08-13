@@ -2,13 +2,6 @@
 
 Our study aims to create a quick and energy-efficient spike sorting pipeline by leveraging the capabilities of LCA for implementation on neuromorphic hardware.
 
-This Python project aims to perform spike sorting based on the Locally Competitive Algorithm (LCA) network.
-We used simulated electrophysiological signals generated with the MEArec framework. 
-The pipeline consists of two main steps: feature extraction using the LCA and a clustering with HDBSCAN.
-To keep things simple, we have omitted the steps of spike detection and template matching, which will be explored in future work.
-
-![alt text](figures/lca_sorting_neuropixels-24.png?)
-
 ## Table of Contents
 - [Installation](#installation)
 - [Usage](#usage)
@@ -22,12 +15,12 @@ To use this spike sorting pipeline, follow these steps:
 
 1. Clone this repository to your local machine using the following command:
    ```bash
-   git clone https://github.com/NECOTIS/LCA-Spike-Sorting
+   git clone https://github.com/NECOTIS/NSS-Neuromorphic-Sparse-Sorter
    ```
 
 2. Navigate to the project directory:
    ```bash
-   cd LCA-Spike-Sorting
+   cd NSS-Neuromorphic-Sparse-Sorter
    ```
 
 3. Install the required dependencies (see [Dependencies](#dependencies) section) using `pip`:
